@@ -41,7 +41,7 @@ function TableList() {
       // console.log(No_users.data);
       setdata(HasukiUsers.reverse());
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   }
 
@@ -62,7 +62,7 @@ function TableList() {
                 <p className="card-category">
                   Total user on the list is {data.length}
                 </p>
-                <div className="flex flex-row  justify-end">
+                <div className="flex flex-row  justify-end mt-[-40px]">
                   <EditModal
                     edit="Add New User"
                     title="Add New User to database"
@@ -73,6 +73,7 @@ function TableList() {
                     XP="XP"
                     user="Add User"
                     color={true}
+                    // bath={true}
                   />
                 </div>
               </Card.Header>
@@ -88,7 +89,7 @@ function TableList() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((data, index) => {
+                    {/* {data.map((data, index) => {
                       return (
                         <>
                           <tr key={index}>
@@ -98,16 +99,7 @@ function TableList() {
                             <td>{data.boopEarned}</td>
                             <td>{data.XP}</td>
                             <div className="flex flex-row">
-                              {/* <Buttonn
-                                Click={handleAdd}
-                                name="Edit"
-                                style={{
-                                  border: "1px black solid",
-                                  backgroundColor: "transparent",
-                                }}
-
-                                
-                              /> */}
+                              
 
                               <EditModal
                                 edit="Edit"
@@ -118,22 +110,15 @@ function TableList() {
                                 BoopEarned="Hasuki"
                                 XP="XP"
                                 user="Set User"
+                          
                               />
                               <DeleteModal />
-                              {/* <Buttonn
-                                Click={handleEdit}
-                                name="Delete"
-                                style={{
-                                  // border: "1px black solid",
-                                  backgroundColor: "#dc3545",
-                                  // borderRaduis: "5px",
-                                }}
-                              /> */}
+                          
                             </div>
                           </tr>
                         </>
                       );
-                    })}
+                    })} */}
                   </tbody>
                 </Table>
               </Card.Body>
