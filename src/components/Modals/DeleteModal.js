@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Button, Modal } from "flowbite-react";
 
-const DeleteModal = () => {
+const DeleteModal = (props) => {
   const [deleteModal, setdeleteModal] = useState(false);
 
   const style = {
     backgroundColor: "#dc3545",
+  };
+
+  const handleClick = (userId) => {
+    console.log(userId);
   };
   return (
     <React.Fragment>
@@ -30,7 +34,12 @@ const DeleteModal = () => {
               Are you sure you want to delete this User?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure">Yes, I'm sure</Button>
+              <Button
+                color="failure"
+                onClick={() => handleClick(props.userAddress)}
+              >
+                Yes, I'm sure
+              </Button>
               <Button color="gray">No, cancel</Button>
             </div>
           </div>

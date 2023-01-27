@@ -49,7 +49,7 @@ function Icons() {
                   Total hunts disbured
                   {/* <a href="https://nucleoapp.com/?ref=1712">NucleoApp</a> */}
                 </p>
-                <div className="flex flex-row justify-end mt-[-40px]">
+                <div className="flex flex-row justify-end mt-[-40px]  ">
                   <EditModal
                     edit="Create New Hunt"
                     title="Create New Hunt"

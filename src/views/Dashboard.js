@@ -298,16 +298,16 @@ function Dashboard() {
             </Card>
           </Col>
         </Row>
-        <Row>
-          <Col md="6">
+        {/* <Row> */}
+        {/* <Col md="6">
             <Card>
               <Card.Header>
                 <Card.Title as="h4">2017 Sales</Card.Title>
                 <p className="card-category">All products including Taxes</p>
               </Card.Header>
               <Card.Body>
-                <div className="ct-chart" id="chartActivity">
-                  {/* <ChartistGraph
+                <div className="ct-chart" id="chartActivity"> */}
+        {/* <ChartistGraph
                     data={{
                       labels: [
                         "Jan",
@@ -376,8 +376,8 @@ function Dashboard() {
                       ],
                     ]}
                   /> */}
-                </div>
-              </Card.Body>
+        {/* </div> */}
+        {/* </Card.Body>
               <Card.Footer>
                 <div className="legend">
                   <i className="fas fa-circle text-info"></i>
@@ -391,8 +391,8 @@ function Dashboard() {
                 </div>
               </Card.Footer>
             </Card>
-          </Col>
-          <Col md="6">
+          </Col> */}
+        {/* <Col md="6">
             <Card className="card-tasks">
               <Card.Header>
                 <Card.Title as="h4">Tasks</Card.Title>
@@ -695,7 +695,7 @@ function Dashboard() {
               </Card.Footer>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </>
   );

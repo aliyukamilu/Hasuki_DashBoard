@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DeleteModal from "components/Modals/DeleteModal";
+import { HOST, LocalHost } from "utils/constants";
 // import { Modal, Button, Label } from "flowbite-react";
 // import TablePagination from "@mui/material/TablePagination";
 
@@ -24,32 +25,34 @@ function TableList() {
 
   // ....................
 
-  const [data, setdata] = useState([]);
-  async function getUser() {
-    try {
-      const res = await axios.get(
-        "https://hasuki-raid-backend.vercel.app/auth/getAllUsers",
-        {
+  const [allUsers, setdata] = useState([]);
+  const [UserData, setUserData] = useState(null);
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const res = await axios.get(`${LocalHost}/auth/getAllUsers`, {
           headers: {
             token:
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrZXlzIiwibmFtZSI6IkpvaG4gTWFyayIsImlhdCI6Ikl5YW4gc2FmZSJ9.lIh4EQqj0B25Ptjx8R_5dAw2R8WoE-C87GkZF6KLkV8",
           },
-        }
-      );
-      const No_users = res.data;
-      const HasukiUsers = No_users.data;
-      // console.log(No_users.data);
-      setdata(HasukiUsers.reverse());
-    } catch (err) {
-      // console.log(err);
+        });
+        const No_users = res.data;
+        const HasukiUsers = No_users.data;
+        // console.log(No_users.data);
+        setdata(HasukiUsers.reverse());
+      } catch (err) {
+        // console.log(err);
+      }
     }
-  }
+
+    getUser();
+  }, []);
 
   // data.map((data) => {
   //   return console.log(data.name);
   // });
 
-  getUser();
   return (
     <>
       <Container fluid>
@@ -60,7 +63,7 @@ function TableList() {
                 <Card.Title className="text-2xl ">Users Profile</Card.Title>
 
                 <p className="card-category">
-                  Total user on the list is {data.length}
+                  Total user on the list is {allUsers.length}
                 </p>
                 <div className="flex flex-row  justify-end mt-[-40px]">
                   <EditModal
@@ -82,43 +85,41 @@ function TableList() {
                   <thead>
                     <tr>
                       <th className="border-0">Name</th>
-                      <th className="border-0">Address</th>
+                      <th className="border-0">Level</th>
                       <th className="border-0">SolEarned</th>
                       <th className="border-0">BoopEarned</th>
                       <th className="border-0">XP</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {data.map((data, index) => {
+                    {allUsers.map((data, index) => {
                       return (
                         <>
                           <tr key={index}>
                             <td>{data.name}</td>
-                            <td>{data.address}</td>
+                            <td>{data.Level}</td>
                             <td>{data.solEarned}</td>
                             <td>{data.boopEarned}</td>
                             <td>{data.XP}</td>
                             <div className="flex flex-row">
-                              
-
                               <EditModal
                                 edit="Edit"
                                 title="Modify User Data"
-                                name="User Moniker"
-                                address="User Wallet"
+                                name="User address"
+                                address="User level"
                                 solEarned="Solana"
                                 BoopEarned="Hasuki"
                                 XP="XP"
+                                username={data.name}
+                                alluserdata={allUsers}
                                 user="Set User"
-                          
                               />
-                              <DeleteModal />
-                          
+                              <DeleteModal userAddress={data.address} />
                             </div>
                           </tr>
                         </>
                       );
-                    })} */}
+                    })}
                   </tbody>
                 </Table>
               </Card.Body>

@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Label, TextInput } from "flowbite-react";
+import axios from "axios";
+import { HOST, configuration, LocalHost } from "../utils/constants";
 
 import { propTypes } from "react-bootstrap/esm/Image";
 import { isConstructorDeclaration } from "typescript";
+// import { response } from "express";
 
 const EditModal = (props) => {
   const [EditModal, setEditModal] = useState(false);
-  const [dd, setdd] = useState({
-    name: "",
-    address: "",
-    SolEarned: "",
-    BoopEarned: "",
-    XP: "",
-  });
-  const [post, setpost] = useState("");
+  const [dd, setdd] = useState(null);
+  // const [post, setpost] = useState("");
+  const [edito, setEdito] = useState("");
+  // const [top, settop] = useState();
   // const style = {
   //   width:"5vh",
   //   height:"2vh",
@@ -23,6 +22,11 @@ const EditModal = (props) => {
   // const HandleChange = (e) => {
   //   console.log(e.target.value);
   // };
+
+  async function postData() {
+    console.log(dd);
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -36,8 +40,87 @@ const EditModal = (props) => {
 
   // console.log(dd);
   const handleClick = () => {
-    setpost(dd);
-    console.log(post);
+    console.log(dd);
+
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      // mode: "no-cors",
+      body: JSON.stringify({
+        body: {
+          address: dd.name,
+          updateData: {
+            name: dd.name,
+            XP: dd.XP,
+            solEarned: dd.solEarned,
+            boopEarned: dd.boopEarned,
+            Level: dd.Level,
+          },
+        },
+      }),
+    };
+    fetch(`${LocalHost}/auth/updateUser`, configuration, requestOptions).then(
+      (response) => console.log(response)
+    );
+
+    // .then(data => this.setState({ postId: data.id }));
+    // async function modifyUser() {
+    //   const res = await axios.put(
+    //     `${HOST}/auth//auth/updateUser`,
+    //     configuration,
+    //     {
+    //       body: {
+    //         address: dd.name,
+    //         updateData: {
+    //           name: dd.name,
+    //           XP: dd.XP,
+    //           solEarned: dd.solEarned,
+    //           boopEarned: dd.boopEarned,
+    //           Level: dd.Level,
+    //         },
+    //       },
+    //       withCredentials: false,
+    //     }
+    //   );
+
+    //   const response = res.data;
+    //   console.log(response);
+
+    // }
+
+    // modifyUser();
+
+    // const postData = await axios.post(
+    //   `${HOST}/auth/createUser?userIdentifier=AxqQqW1gQnXQsDFgkmMUvdVv42QP87MknxJZKnjhG5zu`,
+    //   configuration,
+    //   {
+    //     body: {},
+    //   }
+    // );
+  };
+  const openModal = (username) => {
+    // console.log(username);
+
+    if (username) {
+      let thisGuyData = props.alluserdata.filter(
+        (userd) => userd.name === username
+      );
+      setEdito(thisGuyData[0]);
+      setdd(thisGuyData[0]);
+      console.log(thisGuyData[0]);
+
+      // console.log(post);
+      // setTimeout(() => {
+      //   console.log(edito);
+      // }, 1000);
+    }
+
+    // setedit(thisGuyData[0]);
+    setEditModal(true);
+    // const { name, description, level, XP, solEarned, boopEarned } =
+    //   thisGuyData[0];
+
+    // setedit
   };
 
   // console.log(post);
@@ -45,8 +128,8 @@ const EditModal = (props) => {
     <div>
       <React.Fragment>
         <Button
-          onClick={() => setEditModal(true)}
-          class="p-2 w-13 mt-2 mb-2 mr-2 text-center rounded border-2 border-black "
+          onClick={() => openModal(props.username)}
+          class="p-2 md:w-13 lg:w-15 mt-2 mb-2 mr-2 text-center rounded border-2 border-black  "
           style={{
             backgroundColor: props.color ? "green" : "transparent",
             color: props.color ? "white" : "black",
@@ -214,7 +297,7 @@ const EditModal = (props) => {
                       // placeholder="name"
                       required={true}
                       name="name"
-                      value={dd.name}
+                      defaultValue={edito.name}
                       onChange={handleChange}
                     />
                   </div>
@@ -228,8 +311,8 @@ const EditModal = (props) => {
                       required={true}
                       // value={}
                       onChange={handleChange}
-                      name="address"
-                      value={dd.address}
+                      name="Level"
+                      defaultValue={edito.Level}
                     />
                   </div>
                   <div>
@@ -242,7 +325,7 @@ const EditModal = (props) => {
                       required={true}
                       onChange={handleChange}
                       name="SolEarned"
-                      value={dd.SolEarned}
+                      defaultValue={edito.solEarned}
                     />
                   </div>
 
@@ -256,7 +339,7 @@ const EditModal = (props) => {
                       required={true}
                       onChange={handleChange}
                       name="BoopEarned"
-                      value={dd.BoopEarned}
+                      defaultValue={edito.boopEarned}
                     />
                   </div>
 
@@ -270,7 +353,7 @@ const EditModal = (props) => {
                       required={true}
                       onChange={handleChange}
                       name="XP"
-                      value={dd.XP}
+                      defaultValue={edito.XP}
                     />
                   </div>
 
