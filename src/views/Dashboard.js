@@ -19,10 +19,11 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import axios from "axios";
+import { lowerFirst } from "lodash";
 function Dashboard() {
   const [user, setuser] = useState("");
   const [hunt, sethunt] = useState("");
-  const [huntClaimed, sethuntClaimed] = useState([]);
+  // const [huntClaimed, sethuntClaimed] = useState([]);
   const [first, setfirst] = useState("");
 
   // function for UserApi
@@ -50,20 +51,22 @@ function Dashboard() {
   }, []);
 
   async function TotalHunt() {
-    const resp = await axios.get(`${HOST}/auth/retriveHunts`, configuration);
+    const resp = await axios.get(
+      `${HOST}/auth/retrieveHuntsInfo`,
+      configuration
+    );
     const hunts = resp.data;
+    // console.log(hunts);
     const lengthHunts = hunts.data.length;
     sethunt(lengthHunts);
-    sethuntClaimed(hunts.data);
+
+    // sethuntClaimed(hunts.data);
 
     // console.log(lengthHunts);
-  }
-  // console.log(huntClaimed);
 
-  useEffect(() => {
     const ff = [];
-    huntClaimed.forEach((hunt) => {
-      return ff.push(hunt.total_claimed);
+    hunts.data.forEach((hunt) => {
+      return ff.push(hunt.twitterclaimers.length);
     });
 
     // console.log(ff);
@@ -74,8 +77,10 @@ function Dashboard() {
     }, 0);
 
     setfirst(dd);
-    // console.log(first);
-  }, []);
+  }
+  // console.log(huntClaimed);
+
+  // console.log(first);
 
   return (
     <>
@@ -148,7 +153,7 @@ function Dashboard() {
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Total Hunts Claimed</p>
+                      <p className="card-category">Hunts Claimed</p>
                       <Card.Title as="h4">{first}</Card.Title>
                     </div>
                   </Col>

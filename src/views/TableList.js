@@ -114,7 +114,10 @@ function TableList() {
                                 alluserdata={allUsers}
                                 user="Set User"
                               />
-                              <DeleteModal userAddress={data.address} />
+                              <DeleteModal
+                                userAddress={data.address}
+                                alluserdata={allUsers}
+                              />
                             </div>
                           </tr>
                         </>

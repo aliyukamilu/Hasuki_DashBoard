@@ -10,7 +10,7 @@ import { isConstructorDeclaration } from "typescript";
 const EditModal = (props) => {
   const [EditModal, setEditModal] = useState(false);
   const [dd, setdd] = useState(null);
-  // const [post, setpost] = useState("");
+  const [post, setpost] = useState(null);
   const [edito, setEdito] = useState("");
   // const [top, settop] = useState();
   // const style = {
@@ -22,10 +22,10 @@ const EditModal = (props) => {
   // const HandleChange = (e) => {
   //   console.log(e.target.value);
   // };
-
-  async function postData() {
-    console.log(dd);
-  }
+  // //
+  //   async function postData() {
+  //     console.log(dd);
+  //   }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +36,54 @@ const EditModal = (props) => {
         [name]: value,
       };
     });
+  };
+
+  const HandleCreateChange = (e) => {
+    const { name, value } = e.target;
+    // console.log(name, value);
+
+    setpost((prev) => {
+      return { ...prev, [name]: value };
+    });
+
+    // console.log(post);
+  };
+
+  const HandleCreateClick = (e) => {
+    e.preventDefault();
+
+    let dataToPush = {
+      tweet_url: post.twitter_url,
+      tweet_id: post.id,
+      hunt_title: post.hunt_title,
+      hunt_description: post.hunt_description,
+      hunt_image: post.hunt_image,
+      tweet_username: "HasukiNFTs",
+      tweet_content: post.tweet,
+      xp_reward: 10,
+      token_reward: post.token,
+      reward_type: "boop",
+      expiry_date: 3,
+      isExpired: false,
+      time_stamp: new Date().getDate().toLocaleString(),
+      total_claimed: 0,
+    };
+
+    async function postHunt() {
+      try {
+        const ress = await axios.post(
+          `${LocalHost}/auth/createHuntTest`,
+          dataToPush,
+          configuration
+        );
+        console.log(ress.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    postHunt();
+    // console.log(post);
   };
 
   // console.log(dd);
@@ -98,7 +146,13 @@ const EditModal = (props) => {
     //   }
     // );
   };
-  const openModal = (username) => {
+
+  const HandleCreate = () => {
+    // e.preventDefault();
+
+    console.log("create fuction");
+  };
+  const openModal = (username, click) => {
     // console.log(username);
 
     if (username) {
@@ -115,8 +169,12 @@ const EditModal = (props) => {
       // }, 1000);
     }
 
+    // if (click) {
+    //   console.log("faruk");
+    // }
     // setedit(thisGuyData[0]);
     setEditModal(true);
+    HandleCreate();
     // const { name, description, level, XP, solEarned, boopEarned } =
     //   thisGuyData[0];
 
@@ -140,6 +198,7 @@ const EditModal = (props) => {
         >
           {props.edit}
         </Button>
+
         <Modal
           // id={staticModal}
           // data-modal-backdrop="static"
@@ -166,6 +225,8 @@ const EditModal = (props) => {
                     placeholder="name"
                     required={true}
                     type="url"
+                    name="twitter_url"
+                    onChange={HandleCreateChange}
                   />
                 </div>
 
@@ -177,6 +238,8 @@ const EditModal = (props) => {
                     id="address"
                     placeholder="address"
                     required={true}
+                    onChange={HandleCreateChange}
+                    name="twitter_id"
                   />
                 </div>
                 <div>
@@ -187,6 +250,8 @@ const EditModal = (props) => {
                     id="address"
                     placeholder="address"
                     required={true}
+                    onChange={HandleCreateChange}
+                    name="hunt_title"
                   />
                 </div>
                 {/* </div> */}
@@ -198,6 +263,8 @@ const EditModal = (props) => {
                     id="address"
                     placeholder="address"
                     required={true}
+                    onChange={HandleCreateChange}
+                    name="hunt_Description"
                   />
                 </div>
                 <div>
@@ -208,10 +275,12 @@ const EditModal = (props) => {
                     id="address"
                     placeholder="address"
                     required={true}
+                    onChange={HandleCreateChange}
+                    name="hunt_Image"
                   />
                 </div>
 
-                {/* <div>
+                <div>
                   <div className="mb-1 block">
                     <Label htmlFor="Address" value={props.tweetcontent} />
                   </div>
@@ -219,14 +288,22 @@ const EditModal = (props) => {
                     id="address"
                     placeholder="address"
                     required={true}
+                    onChange={HandleCreateChange}
+                    name="tweet"
                   />
                 </div>
                 <div>
                   <div className="mb-1 block">
                     <Label htmlFor="SolEarned" value={props.token} />
                   </div>
-                  <TextInput id="token" type="number" required={true} />
-                </div> */}
+                  <TextInput
+                    id="token"
+                    type="number"
+                    required={true}
+                    onChange={HandleCreateChange}
+                    name="token"
+                  />
+                </div>
                 {/* 
                 <div>
                   <div className="mb-1 block">
@@ -257,19 +334,31 @@ const EditModal = (props) => {
                   <div className="mb-1 block">
                     <Label htmlFor="XP" value={props.XP} />
                   </div>
-                  <TextInput id="xp" type="number" required={true} />
+                  <TextInput
+                    id="xp"
+                    type="number"
+                    required={true}
+                    name="XP"
+                    onChange={HandleCreateChange}
+                  />
                 </div>
 
                 <div>
                   <div className="mb-1 block">
                     <Label htmlFor="XP" value={props.Claimable} />
                   </div>
-                  <TextInput id="xp" type="number" required={true} />
+                  <TextInput
+                    id="xp"
+                    type="number"
+                    required={true}
+                    name="Claimables"
+                    onChange={HandleCreateChange}
+                  />
                 </div>
 
                 <div className="flex flex-row justify-between">
                   <div className="w-50% text-center mt-3 ">
-                    <Button>{props.user}</Button>
+                    <Button onClick={HandleCreateClick}>{props.user}</Button>
                   </div>
 
                   <div className="w-50% text-center mt-3 ">
@@ -386,3 +475,16 @@ const EditModal = (props) => {
 };
 
 export default EditModal;
+// \          <Button
+//     onClick={() => openModal(props.username)}
+//     class="p-2 md:w-13 lg:w-15 mt-2 mb-2 mr-2 text-center rounded border-2 border-black  "
+//     style={{
+//       backgroundColor: props.color ? "green" : "transparent",
+//       color: props.color ? "white" : "black",
+//       border: "black 1px solid",
+//     }}
+//     // data-modal-target="staticModal"
+//     // data-modal-toggle="staticModal"
+//   >
+//     {props.edit}
+//   </Button>

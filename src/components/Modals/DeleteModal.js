@@ -3,13 +3,21 @@ import { Button, Modal } from "flowbite-react";
 
 const DeleteModal = (props) => {
   const [deleteModal, setdeleteModal] = useState(false);
+  // const [del, setdel] = useState()
 
   const style = {
     backgroundColor: "#dc3545",
   };
 
-  const handleClick = (userId) => {
-    console.log(userId);
+  const handleClick = (address) => {
+    try {
+      const filterred = props.alluserdata.filter(
+        (nnn) => nnn.address === address
+      );
+      console.log(filterred);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <React.Fragment>

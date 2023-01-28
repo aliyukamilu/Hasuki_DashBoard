@@ -68,6 +68,7 @@ function Icons() {
                     // XP="XP"
                     user="create hunt"
                     bath={true}
+                    // click={handleCreate}
                     // style={{ backgroundColor: "#198754" }}
                   />
                 </div>
