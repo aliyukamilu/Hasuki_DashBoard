@@ -178,8 +178,7 @@ const EditModal = (props) => {
 
   const HandleCreate = () => {
     // e.preventDefault();
-
-    console.log("create fuction");
+    // console.log("create fuction");
   };
   const openModal = (username) => {
     // console.log(username);
@@ -191,51 +190,56 @@ const EditModal = (props) => {
       setEdito(thisGuyData[0]);
       setdd(thisGuyData[0]);
       console.log(thisGuyData[0]);
-
-      // console.log(post);
-      // setTimeout(() => {
-      //   console.log(edito);
-      // }, 1000);
     }
 
-    // if (click) {
-    //   console.log("faruk");
-    // }
-    // setedit(thisGuyData[0]);
     setEditModal(true);
     HandleCreate();
-    // const { name, description, level, XP, solEarned, boopEarned } =
-    //   thisGuyData[0];
-
-    // setedit
   };
 
   // console.log(post);
   return (
     <div>
       <React.Fragment>
-        <Button
+        {props.bath ? (
+          <Button
+            onClick={() => openModal(props.username)}
+            class="p-2 mt-2 mb-2 mr-2 text-center rounded border-2 border-black "
+            style={{
+              backgroundColor: props.color ? "green" : "transparent",
+              color: props.color ? "white" : "black",
+              border: "black 1px solid",
+              // width: "300px",
+            }}
+          >
+            {props.edit}
+          </Button>
+        ) : (
+          <Button
+            onClick={() => openModal(props.username)}
+            class="p-2 mt-2 mb-2 mr-2 text-center rounded border-2 border-black"
+            style={{
+              backgroundColor: props.color ? "green" : "transparent",
+              color: props.color ? "white" : "black",
+              border: "black 1px solid",
+            }}
+          >
+            {props.edit}
+          </Button>
+        )}
+        {/* <Button
+        
           onClick={() => openModal(props.username)}
-          class="p-2 md:w-13 lg:w-15 mt-2 mb-2 mr-2 text-center rounded border-2 border-black  "
+          class="p-2 mt-2 mb-2 mr-2 text-center rounded border-2 border-black"
           style={{
             backgroundColor: props.color ? "green" : "transparent",
             color: props.color ? "white" : "black",
             border: "black 1px solid",
           }}
-          // data-modal-target="staticModal"
-          // data-modal-toggle="staticModal"
         >
           {props.edit}
-        </Button>
+        </Button> */}
 
-        <Modal
-          // id={staticModal}
-          // data-modal-backdrop="static"
-          show={EditModal}
-          size="xl"
-          popup={true}
-          // onClick={() => setEditModal(true)}
-        >
+        <Modal show={EditModal} size="xl" popup={true}>
           <Modal.Header />
 
           <Modal.Body>

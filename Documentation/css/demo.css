@@ -22,6 +22,14 @@
     position: relative;
   }
 
+  /* @media (min-width: 560px) {
+    .btn-button {
+      width: 10vh;
+      font-size: 3vh;
+      color: aqua;
+    }
+  } */
+
   .typo-line .category {
     transform: translateY(-50%);
     top: 50%;

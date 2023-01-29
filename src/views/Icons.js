@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { configuration, HOST } from "../utils/constants";
+import { configuration, HOST, LocalHost } from "../utils/constants";
 import { CiBitcoin } from "react-icons/ci";
 import EditModal from "components/EditModal";
 
@@ -25,9 +25,12 @@ function Icons() {
   }, []);
 
   async function huntsNo() {
-    const res = await axios.get(`${HOST}/auth/retriveHunts`, configuration);
+    const res = await axios.get(
+      `${LocalHost}/auth/retriveHunts`,
+      configuration
+    );
     const response2 = await axios.get(
-      `${HOST}/auth/retrieveHuntsInfo`,
+      `${LocalHost}/auth/retrieveHuntsInfo`,
       configuration
     );
     const RetrivedHunts = res.data.data;

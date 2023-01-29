@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
-import { configuration, HOST } from "utils/constants";
+import { configuration, HOST, LocalHost } from "utils/constants";
 // import ChartistGraph from "react-chartist";
 // react-bootstrap components
 import {
@@ -31,7 +31,10 @@ function Dashboard() {
   useEffect(() => {
     async function getUser() {
       try {
-        const res = await axios.get(`${HOST}/auth/getAllUsers`, configuration);
+        const res = await axios.get(
+          `${LocalHost}/auth/getAllUsers`,
+          configuration
+        );
         const No_users = res.data;
         const HasukiUsers = No_users.data.length;
         // console.log(No_users.data.length);
@@ -52,7 +55,7 @@ function Dashboard() {
 
   async function TotalHunt() {
     const resp = await axios.get(
-      `${HOST}/auth/retrieveHuntsInfo`,
+      `${LocalHost}/auth/retrieveHuntsInfo`,
       configuration
     );
     const hunts = resp.data;
