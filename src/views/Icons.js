@@ -45,14 +45,14 @@ function Icons() {
         <Row>
           <Col md="12">
             <Card>
-              <Card.Header>
+              <Card.Header className="">
                 <Card.Title as="h4">Hasuki Hunts</Card.Title>
                 {/* <div className=" flex flex-row "> */}
                 <p className="card-category">
                   Total hunts disbured
                   {/* <a href="https://nucleoapp.com/?ref=1712">NucleoApp</a> */}
                 </p>
-                <div className="flex flex-row justify-end mt-[-40px]  ">
+                <div className=" lg:flex flex-row justify-end mt-[-50px] sm:block  mt-[30px]">
                   <EditModal
                     edit="Create New Hunt"
                     title="Create New Hunt"

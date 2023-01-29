@@ -65,7 +65,7 @@ function TableList() {
                 <p className="card-category">
                   Total user on the list is {allUsers.length}
                 </p>
-                <div className="flex flex-row  justify-end mt-[-40px]">
+                <div className="lg:flex flex-row  justify-end mt-[-50px] sm:block  mt-[30px]">
                   <EditModal
                     edit="Add New User"
                     title="Add New User to database"
