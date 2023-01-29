@@ -77,14 +77,14 @@ const EditModal = (props) => {
       ) {
         // console.log(checi);
         let obj = {
-          name: checi.value,
+          action: checi.value,
           description: checi.dataset.description,
           tweet_url: post.twitter_url,
         };
         dataToPush.actions.push(obj);
       } else if (checi.checked && checi.value === "comment") {
         let obj = {
-          name: checi.value,
+          action: checi.value,
           description: "Drop a comment bro!",
           tweet_url: post.twitter_url,
         };
@@ -94,7 +94,7 @@ const EditModal = (props) => {
     async function postHunt() {
       try {
         const ress = await axios.post(
-          `${HOST}/auth/createHuntTest`,
+          `${LocalHost}/auth/createHuntTest`,
           dataToPush,
           configuration
         );

@@ -179,8 +179,8 @@ function Dashboard() {
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Followers</p>
-                      <Card.Title as="h4">+45K</Card.Title>
+                      <p className="card-category">Sol Disbured</p>
+                      <Card.Title as="h4">9</Card.Title>
                     </div>
                   </Col>
                 </Row>
