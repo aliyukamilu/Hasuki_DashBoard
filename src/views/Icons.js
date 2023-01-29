@@ -68,6 +68,7 @@ function Icons() {
                     // XP="XP"
                     user="create hunt"
                     bath={true}
+                    // style={{ height: "600px", overflow: "auto" }}
                     // click={handleCreate}
                     // style={{ backgroundColor: "#198754" }}
                   />

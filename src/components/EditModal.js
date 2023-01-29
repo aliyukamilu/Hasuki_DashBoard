@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import { HOST, configuration, LocalHost } from "../utils/constants";
-
 import { propTypes } from "react-bootstrap/esm/Image";
 import { isConstructorDeclaration } from "typescript";
 // import { response } from "express";
@@ -40,24 +39,23 @@ const EditModal = (props) => {
 
   const HandleCreateChange = (e) => {
     const { name, value } = e.target;
-    // console.log(name, value);
 
     setpost((prev) => {
       return { ...prev, [name]: value };
     });
 
-    // console.log(post);
+    console.log(post);
   };
 
-  const HandleCreateClick = (e) => {
-    e.preventDefault();
-
+  const HandleCreateClick = () => {
+    // e.preventDefault();
+    let checkboxies = document.querySelectorAll(".checkboxi");
     let dataToPush = {
       tweet_url: post.twitter_url,
-      tweet_id: post.id,
+      tweet_id: post.twitter_id,
       hunt_title: post.hunt_title,
-      hunt_description: post.hunt_description,
-      hunt_image: post.hunt_image,
+      hunt_description: post.hunt_Description,
+      hunt_image: post.hunt_Image,
       tweet_username: "HasukiNFTs",
       tweet_content: post.tweet,
       xp_reward: 10,
@@ -67,8 +65,32 @@ const EditModal = (props) => {
       isExpired: false,
       time_stamp: new Date().getDate().toLocaleString(),
       total_claimed: 0,
+      actions: [],
     };
 
+    checkboxies.forEach((checi, i) => {
+      if (
+        checi.checked &&
+        (checi.value === "like" ||
+          checi.value === "follow" ||
+          checi.value === "retweet")
+      ) {
+        // console.log(checi);
+        let obj = {
+          name: checi.value,
+          description: checi.dataset.description,
+          tweet_url: post.twitter_url,
+        };
+        dataToPush.actions.push(obj);
+      } else if (checi.checked && checi.value === "comment") {
+        let obj = {
+          name: checi.value,
+          description: "Drop a comment bro!",
+          tweet_url: post.twitter_url,
+        };
+        dataToPush.actions.push(obj);
+      }
+    });
     async function postHunt() {
       try {
         const ress = await axios.post(
@@ -83,7 +105,14 @@ const EditModal = (props) => {
     }
 
     postHunt();
-    // console.log(post);
+    console.log(dataToPush);
+
+    setTimeout(() => {
+      window.location.reload();
+      setEditModal(false);
+    }, 3000);
+
+    // setpost("");
   };
 
   // console.log(dd);
@@ -152,7 +181,7 @@ const EditModal = (props) => {
 
     console.log("create fuction");
   };
-  const openModal = (username, click) => {
+  const openModal = (username) => {
     // console.log(username);
 
     if (username) {
@@ -212,7 +241,10 @@ const EditModal = (props) => {
           <Modal.Body>
             {" "}
             {props.bath ? (
-              <div className="space-y-1 px-3 pb-4 sm:pb-3 lg:px-8 xl:pb-8">
+              <div
+                className="space-y-1 px-3 pb-4 sm:pb-3 lg:px-8 xl:pb-8"
+                style={{ height: "400px", overflow: "auto" }}
+              >
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                   {props.title}
                 </h3>
@@ -304,31 +336,87 @@ const EditModal = (props) => {
                     name="token"
                   />
                 </div>
-                {/* 
-                <div>
-                  <div className="mb-1 block">
-                    <Label htmlFor="BoopEarned" value="Reward type" />
 
+                <div className="mt-3 mb-3">
+                  <Label
+                    htmlFor="BoopEarned"
+                    value="Reward type"
+                    className="text-xl"
+                  />
+
+                  <div className="flex flex-row gap-6">
+                    <label htmlFor="coin" className="" value="Reward Type">
+                      <select name="Reward" onChange={HandleCreateChange}>
+                        <option value="Boop" name="boop">
+                          Boop
+                        </option>
+                        <option value="Sol" name="sol">
+                          Sol
+                        </option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="mb-3 mt-3">
+                  <Label
+                    htmlFor="BoopEarned"
+                    value="Actions"
+                    className="text-xl"
+                  />
+
+                  <div className="flex flex-row gap-6">
                     <div>
                       <input
                         type="checkbox"
-                        value="Boop"
-                        name="Boop"
-                        id="Reward type"
+                        value="follow"
+                        name="follow"
+                        data-description="Follow"
+                        className="checkboxi"
                       />
-                      <label htmlFor="Boop">Boop</label>
+                      <label htmlFor="Boop" className="pl-2">
+                        Follow
+                      </label>
                     </div>
                     <div>
                       <input
                         type="checkbox"
-                        value="Sol"
-                        name="Sol"
-                        id="Reward type"
+                        value="like"
+                        name="like"
+                        className="checkboxi"
+                        data-description="Like post"
                       />
-                      <label htmlFor="Sol">Sol</label>
+                      <label htmlFor="Sol" className="pl-2">
+                        {" "}
+                        Like
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="checkbox"
+                        value="comment"
+                        name="comment"
+                        className="checkboxi"
+                        data-description="Drop a comment"
+                      />
+                      <label htmlFor="Boop" className="pl-2">
+                        Comment
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="checkbox"
+                        value="retweet"
+                        className="checkboxi"
+                        name="retweet"
+                        data-description="Retweet Post"
+                      />
+                      <label htmlFor="Sol" className="pl-2">
+                        Retweet
+                      </label>
                     </div>
                   </div>
-                </div> */}
+                </div>
 
                 <div>
                   <div className="mb-1 block">

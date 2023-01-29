@@ -76,6 +76,7 @@ function TableList() {
                     XP="XP"
                     user="Add User"
                     color={true}
+                    // style={style}
                     // bath={true}
                   />
                 </div>
@@ -202,7 +203,7 @@ function TableList() {
                 /> */}
           {/* </Card.Body> */}
           {/* </Card> */}
-          {/* </Col> */} */
+          {/* </Col> */}
         </Row>
       </Container>
     </>

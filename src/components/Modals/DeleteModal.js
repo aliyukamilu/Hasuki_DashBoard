@@ -3,7 +3,7 @@ import { Button, Modal } from "flowbite-react";
 
 const DeleteModal = (props) => {
   const [deleteModal, setdeleteModal] = useState(false);
-  // const [del, setdel] = useState()
+  const [del, setdel] = useState(props.alluserdata);
 
   const style = {
     backgroundColor: "#dc3545",
@@ -11,10 +11,8 @@ const DeleteModal = (props) => {
 
   const handleClick = (address) => {
     try {
-      const filterred = props.alluserdata.filter(
-        (nnn) => nnn.address === address
-      );
-      console.log(filterred);
+      const filterred = del.filter((nnn) => nnn.address === address);
+      // console.log(filterred);
     } catch (error) {
       console.log(error);
     }
