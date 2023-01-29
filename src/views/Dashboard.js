@@ -174,13 +174,13 @@ function Dashboard() {
                 <Row>
                   <Col xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-favourite-28 text-primary"></i>
+                      <i className="nc-icon nc-money-coins text-primary"></i>
                     </div>
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Sol Disbured</p>
-                      <Card.Title as="h4">9</Card.Title>
+                      <Card.Title as="h4">9 $sol </Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -189,7 +189,7 @@ function Dashboard() {
                 <hr></hr>
                 <div className="stats">
                   <i className="fas fa-redo mr-1"></i>
-                  Update now
+                  Refresh
                 </div>
               </Card.Footer>
             </Card>
@@ -199,7 +199,7 @@ function Dashboard() {
           <Col md="8">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Users Behavior</Card.Title>
+                <Card.Title as="h4">Users Stats</Card.Title>
                 <p className="card-category">24 Hours performance</p>
               </Card.Header>
               <Card.Body>
@@ -272,7 +272,7 @@ function Dashboard() {
           <Col md="4">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Email Statistics</Card.Title>
+                <Card.Title as="h4">Claims</Card.Title>
                 <p className="card-category">Last Campaign Performance</p>
               </Card.Header>
               <Card.Body>
