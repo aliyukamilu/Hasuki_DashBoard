@@ -94,7 +94,7 @@ const EditModal = (props) => {
     async function postHunt() {
       try {
         const ress = await axios.post(
-          `${LocalHost}/auth/createHuntTest`,
+          `${HOST}/auth/createHuntTest`,
           dataToPush,
           configuration
         );
@@ -136,7 +136,7 @@ const EditModal = (props) => {
         },
       }),
     };
-    fetch(`${LocalHost}/auth/updateUser`, configuration, requestOptions).then(
+    fetch(`${HOST}/auth/updateUser`, configuration, requestOptions).then(
       (response) => console.log(response)
     );
 

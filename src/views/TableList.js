@@ -31,7 +31,7 @@ function TableList() {
   useEffect(() => {
     async function getUser() {
       try {
-        const res = await axios.get(`${LocalHost}/auth/getAllUsers`, {
+        const res = await axios.get(`${HOST}/auth/getAllUsers`, {
           headers: {
             token:
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrZXlzIiwibmFtZSI6IkpvaG4gTWFyayIsImlhdCI6Ikl5YW4gc2FmZSJ9.lIh4EQqj0B25Ptjx8R_5dAw2R8WoE-C87GkZF6KLkV8",

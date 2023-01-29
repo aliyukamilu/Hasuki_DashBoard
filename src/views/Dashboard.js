@@ -31,10 +31,7 @@ function Dashboard() {
   useEffect(() => {
     async function getUser() {
       try {
-        const res = await axios.get(
-          `${LocalHost}/auth/getAllUsers`,
-          configuration
-        );
+        const res = await axios.get(`${HOST}/auth/getAllUsers`, configuration);
         const No_users = res.data;
         const HasukiUsers = No_users.data.length;
         // console.log(No_users.data.length);
@@ -55,7 +52,7 @@ function Dashboard() {
 
   async function TotalHunt() {
     const resp = await axios.get(
-      `${LocalHost}/auth/retrieveHuntsInfo`,
+      `${HOST}/auth/retrieveHuntsInfo`,
       configuration
     );
     const hunts = resp.data;
