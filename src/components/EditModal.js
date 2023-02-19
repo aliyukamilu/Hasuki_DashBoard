@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Label, TextInput } from "flowbite-react";
+import { Modal, Button, Label, TextInput, Spinner } from "flowbite-react";
 import axios from "axios";
 import { HOST, configuration, LocalHost } from "../utils/constants";
 import { propTypes } from "react-bootstrap/esm/Image";
@@ -11,6 +11,7 @@ const EditModal = (props) => {
   const [dd, setdd] = useState(null);
   const [post, setpost] = useState(null);
   const [edito, setEdito] = useState("");
+  const [loading, setLoading] = useState(false)
   // const [top, settop] = useState();
   // const style = {
   //   width:"5vh",
@@ -25,6 +26,11 @@ const EditModal = (props) => {
   //   async function postData() {
   //     console.log(dd);
   //   }
+
+  useEffect(() => {
+    setLoading(false)
+  }, [])
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,27 +50,34 @@ const EditModal = (props) => {
       return { ...prev, [name]: value };
     });
 
-    console.log(post);
+    // console.log(post);
   };
 
   const HandleCreateClick = () => {
     // e.preventDefault();
+    setLoading(true)
     let checkboxies = document.querySelectorAll(".checkboxi");
+    let selVal = document.querySelector(".rewType")
+    let cllVal = document.querySelector("#cllVal")
+
+
     let dataToPush = {
       tweet_url: post.twitter_url,
       tweet_id: post.twitter_id,
       hunt_title: post.hunt_title,
       hunt_description: post.hunt_Description,
       hunt_image: post.hunt_Image,
-      tweet_username: "HasukiNFTs",
+      tweet_username: post.tweetusername,
       tweet_content: post.tweet,
       xp_reward: 10,
-      token_reward: post.token,
-      reward_type: "boop",
+      token_reward: parseFloat(post.token),
+      reward_type: selVal.value,
       expiry_date: 3,
       isExpired: false,
-      time_stamp: new Date().getDate().toLocaleString(),
+      isApproved: true,
+      time_stamp: new Date().toISOString(),
       total_claimed: 0,
+      claimable: parseInt(cllVal.value),
       actions: [],
     };
 
@@ -85,12 +98,13 @@ const EditModal = (props) => {
       } else if (checi.checked && checi.value === "comment") {
         let obj = {
           action: checi.value,
-          description: "Drop a comment bro!",
+          description: "Drop a comment!",
           tweet_url: post.twitter_url,
         };
         dataToPush.actions.push(obj);
       }
     });
+    console.log(dataToPush);
     async function postHunt() {
       try {
         const ress = await axios.post(
@@ -99,20 +113,19 @@ const EditModal = (props) => {
           configuration
         );
         console.log(ress.data);
+        setLoading(false)
+        setEditModal(false)
+        alert("Created successfully")
+        window.location.reload()
       } catch (error) {
         console.log(error);
+        setLoading(false)
+        alert("Something went wrong !")
       }
     }
 
     postHunt();
-    console.log(dataToPush);
 
-    setTimeout(() => {
-      window.location.reload();
-      setEditModal(false);
-    }, 3000);
-
-    // setpost("");
   };
 
   // console.log(dd);
@@ -139,41 +152,6 @@ const EditModal = (props) => {
     fetch(`${HOST}/auth/updateUser`, configuration, requestOptions).then(
       (response) => console.log(response)
     );
-
-    // .then(data => this.setState({ postId: data.id }));
-    // async function modifyUser() {
-    //   const res = await axios.put(
-    //     `${HOST}/auth//auth/updateUser`,
-    //     configuration,
-    //     {
-    //       body: {
-    //         address: dd.name,
-    //         updateData: {
-    //           name: dd.name,
-    //           XP: dd.XP,
-    //           solEarned: dd.solEarned,
-    //           boopEarned: dd.boopEarned,
-    //           Level: dd.Level,
-    //         },
-    //       },
-    //       withCredentials: false,
-    //     }
-    //   );
-
-    //   const response = res.data;
-    //   console.log(response);
-
-    // }
-
-    // modifyUser();
-
-    // const postData = await axios.post(
-    //   `${HOST}/auth/createUser?userIdentifier=AxqQqW1gQnXQsDFgkmMUvdVv42QP87MknxJZKnjhG5zu`,
-    //   configuration,
-    //   {
-    //     body: {},
-    //   }
-    // );
   };
 
   const HandleCreate = () => {
@@ -203,25 +181,14 @@ const EditModal = (props) => {
         {props.bath ? (
           <Button
             onClick={() => openModal(props.username)}
-            class="p-2 mt-2 mb-2 mr-2 text-center rounded border-2 border-black "
-            style={{
-              backgroundColor: props.color ? "green" : "transparent",
-              color: props.color ? "white" : "black",
-              border: "black 1px solid",
-              // width: "300px",
-            }}
+            className="p-2 mt-2 mb-2 mr-2 text-center rounded border-2 border-black text-black"
           >
             {props.edit}
           </Button>
         ) : (
           <Button
             onClick={() => openModal(props.username)}
-            class="p-2 mt-2 mb-2 mr-2 text-center rounded border-2 border-black"
-            style={{
-              backgroundColor: props.color ? "green" : "transparent",
-              color: props.color ? "white" : "black",
-              border: "black 1px solid",
-            }}
+            className="p-2 mt-2 mb-2 mr-2 text-center rounded border-2 border-black text-black"
           >
             {props.edit}
           </Button>
@@ -229,7 +196,7 @@ const EditModal = (props) => {
         {/* <Button
         
           onClick={() => openModal(props.username)}
-          class="p-2 mt-2 mb-2 mr-2 text-center rounded border-2 border-black"
+          className="p-2 mt-2 mb-2 mr-2 text-center rounded border-2 border-black"
           style={{
             backgroundColor: props.color ? "green" : "transparent",
             color: props.color ? "white" : "black",
@@ -239,7 +206,7 @@ const EditModal = (props) => {
           {props.edit}
         </Button> */}
 
-        <Modal show={EditModal} size="xl" popup={true}>
+        <Modal show={EditModal} size="xl" popup={true} onClose={() => setEditModal(false)}>
           <Modal.Header />
 
           <Modal.Body>
@@ -252,13 +219,13 @@ const EditModal = (props) => {
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                   {props.title}
                 </h3>
-                <div>
+                <div className="mb-4">
                   <div className=" block">
                     <Label htmlFor="Name" value={props.name} />
                   </div>
                   <TextInput
                     id="Name"
-                    placeholder="name"
+                    placeholder="tweet Url"
                     required={true}
                     type="url"
                     name="twitter_url"
@@ -266,70 +233,87 @@ const EditModal = (props) => {
                   />
                 </div>
 
-                <div>
-                  <div className="mb-1 block">
+                <div className="mb-4">
+                  <div className="block">
                     <Label htmlFor="Address" value={props.id} />
                   </div>
                   <TextInput
                     id="address"
-                    placeholder="address"
+                    placeholder="6868789808776875554"
                     required={true}
                     onChange={HandleCreateChange}
                     name="twitter_id"
                   />
                 </div>
-                <div>
-                  <div className="mb-1 block">
+
+                <div className="mb-4">
+                  <div className="block">
+                    <Label htmlFor="Address" value="Account Username" />
+                  </div>
+                  <TextInput
+                    id="address"
+                    placeholder="Account Username"
+                    required={true}
+                    onChange={HandleCreateChange}
+                    name="tweetusername"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <div className="block">
                     <Label htmlFor="Address" value={props.hunt} />
                   </div>
                   <TextInput
                     id="address"
-                    placeholder="address"
+                    placeholder="Hunt Title"
                     required={true}
                     onChange={HandleCreateChange}
                     name="hunt_title"
                   />
                 </div>
                 {/* </div> */}
-                <div>
-                  <div className="mb-1 block">
+
+                <div className="mb-4">
+                  <div className="block">
                     <Label htmlFor="Address" value={props.huntdes} />
                   </div>
                   <TextInput
                     id="address"
-                    placeholder="address"
+                    placeholder="Hunt Description"
                     required={true}
                     onChange={HandleCreateChange}
                     name="hunt_Description"
                   />
                 </div>
-                <div>
-                  <div className="mb-1 block">
+
+                <div className="mb-4">
+                  <div className="block">
                     <Label htmlFor="Address" value={props.huntimg} />
                   </div>
                   <TextInput
                     id="address"
-                    placeholder="address"
+                    placeholder="Hunt Image URL"
                     required={true}
                     onChange={HandleCreateChange}
                     name="hunt_Image"
                   />
                 </div>
 
-                <div>
-                  <div className="mb-1 block">
+                <div className="mb-4">
+                  <div className="block">
                     <Label htmlFor="Address" value={props.tweetcontent} />
                   </div>
                   <TextInput
                     id="address"
-                    placeholder="address"
+                    placeholder="Tweet content"
                     required={true}
                     onChange={HandleCreateChange}
                     name="tweet"
                   />
                 </div>
-                <div>
-                  <div className="mb-1 block">
+
+                <div className="mb-4">
+                  <div className="block">
                     <Label htmlFor="SolEarned" value={props.token} />
                   </div>
                   <TextInput
@@ -350,11 +334,11 @@ const EditModal = (props) => {
 
                   <div className="flex flex-row gap-6">
                     <label htmlFor="coin" className="" value="Reward Type">
-                      <select name="Reward" onChange={HandleCreateChange}>
-                        <option value="Boop" name="boop">
+                      <select name="Reward" className="rewType" onChange={HandleCreateChange}>
+                        <option value="boop" name="boop">
                           Boop
                         </option>
-                        <option value="Sol" name="sol">
+                        <option value="sol" name="sol">
                           Sol
                         </option>
                       </select>
@@ -424,34 +408,28 @@ const EditModal = (props) => {
 
                 <div>
                   <div className="mb-1 block">
-                    <Label htmlFor="XP" value={props.XP} />
-                  </div>
-                  <TextInput
-                    id="xp"
-                    type="number"
-                    required={true}
-                    name="XP"
-                    onChange={HandleCreateChange}
-                  />
-                </div>
-
-                <div>
-                  <div className="mb-1 block">
                     <Label htmlFor="XP" value={props.Claimable} />
                   </div>
                   <TextInput
-                    id="xp"
+                    id="cllVal"
                     type="number"
                     required={true}
-                    name="Claimables"
+                    name="claimable"
                     onChange={HandleCreateChange}
                   />
                 </div>
 
                 <div className="flex flex-row justify-between">
-                  <div className="w-50% text-center mt-3 ">
-                    <Button onClick={HandleCreateClick}>{props.user}</Button>
-                  </div>
+                  {loading ? (
+                    <div>
+                      <Spinner size="lg" />
+                    </div>
+                  ) : (
+                    <div className="w-50% text-center mt-3 ">
+                      <Button onClick={HandleCreateClick}>{props.user}</Button>
+                    </div>
+                  )}
+
 
                   <div className="w-50% text-center mt-3 ">
                     <Button
@@ -539,9 +517,11 @@ const EditModal = (props) => {
                   </div>
 
                   <div className="flex flex-row justify-between">
+
                     <div className="w-50% text-center mt-3 ">
                       <Button onClick={handleClick}>{props.user}</Button>
                     </div>
+
 
                     <div className="w-50% text-center mt-3 ">
                       <Button
@@ -562,14 +542,14 @@ const EditModal = (props) => {
           {/* </Modal.Body> */}
         </Modal>
       </React.Fragment>
-    </div>
+    </div >
   );
 };
 
 export default EditModal;
 // \          <Button
 //     onClick={() => openModal(props.username)}
-//     class="p-2 md:w-13 lg:w-15 mt-2 mb-2 mr-2 text-center rounded border-2 border-black  "
+//     className="p-2 md:w-13 lg:w-15 mt-2 mb-2 mr-2 text-center rounded border-2 border-black  "
 //     style={{
 //       backgroundColor: props.color ? "green" : "transparent",
 //       color: props.color ? "white" : "black",

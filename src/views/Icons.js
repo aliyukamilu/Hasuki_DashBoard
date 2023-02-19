@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { configuration, HOST, LocalHost } from "../utils/constants";
 import { CiBitcoin } from "react-icons/ci";
 import EditModal from "components/EditModal";
-
+import { AiOutlineFileDone } from 'react-icons/ai'
+import { GiJumpingDog } from 'react-icons/gi'
 // react-bootstrap components
 import {
   Badge,
@@ -16,27 +17,46 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { Spinner, Tabs } from "flowbite-react";
 
 function Icons() {
   const [hunts, sethunts] = useState(null);
   const [HuntInfo, setHuntInfo] = useState(null);
+  const [loadingg, setloadingg] = useState(false)
+  const [ExpiredData, setExpiredData] = useState(null)
+
   useEffect(() => {
     huntsNo();
   }, []);
 
   async function huntsNo() {
-    const res = await axios.get(
-      `${LocalHost}/auth/retriveHunts`,
-      configuration
-    );
-    const response2 = await axios.get(
-      `${LocalHost}/auth/retrieveHuntsInfo`,
-      configuration
-    );
-    const RetrivedHunts = res.data.data;
-    sethunts(RetrivedHunts);
-    // console.log(response2.data.data);
-    setHuntInfo(response2.data.data);
+    try {
+      setloadingg(true)
+      const res = await axios.get(
+        `${LocalHost}/auth/retriveHunts`,
+        configuration
+      );
+
+      const RetrivedHunts = res.data.data;
+
+      sethunts(RetrivedHunts.reverse().filter(iii => iii.isExpired === false));
+      setExpiredData(RetrivedHunts.reverse().filter(ii => ii.isExpired === true))
+
+      setloadingg(false)
+      // console.log(response2.data.data);
+      const response2 = await axios.get(
+        `${LocalHost}/auth/retrieveHuntsInfo`,
+        configuration
+      );
+      setHuntInfo(response2.data.data);
+
+    } catch (error) {
+      console.log(error)
+      setloadingg(false)
+      alert("something went wrong !")
+    }
+
+
   }
 
   return (
@@ -49,7 +69,7 @@ function Icons() {
                 <Card.Title as="h4">Hasuki Hunts</Card.Title>
                 {/* <div className=" flex flex-row "> */}
                 <p className="card-category">
-                  Total hunts disbured
+                  Total hunts ({hunts && hunts.length})
                   {/* <a href="https://nucleoapp.com/?ref=1712">NucleoApp</a> */}
                 </p>
                 <div className=" lg:flex flex-row justify-end mt-[-50px] sm:block  mt-[30px]">
@@ -71,9 +91,9 @@ function Icons() {
                     // XP="XP"
                     user="create hunt"
                     bath={true}
-                    // style={{ height: "600px", overflow: "auto" }}
-                    // click={handleCreate}
-                    // style={{ backgroundColor: "#198754" }}
+                  // style={{ height: "600px", overflow: "auto" }}
+                  // click={handleCreate}
+                  // style={{ backgroundColor: "#198754" }}
                   />
                 </div>
                 {/* </div> */}
@@ -81,20 +101,51 @@ function Icons() {
               <Card.Body className="all-icons">
                 <Row></Row>
               </Card.Body>
+              {loadingg ? (
+                <div className="flex justify-center">
+                  <Spinner size="lg" />
+                </div>
+              ) : (
+                <>
+                  <Tabs.Group aria-label="Tabs with icons" className='mt-5' style="underline" id="tabsss">
 
-              {hunts && (
-                <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-5 gap-8">
-                  {hunts.map((huntsdata, i) => (
-                    <HuntsCard
-                      key={i}
-                      huntInfo={huntsdata}
-                      claimsInfo={HuntInfo.filter(
-                        (cc) => cc.tweet_id === huntsdata.tweet_id
+                    <Tabs.Item active={true} title={`Live Hunts (${hunts && hunts.length})`} icon={GiJumpingDog}>
+                      {hunts && (
+                        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-5 gap-8 px-3">
+                          {hunts.map((huntsdata, i) => (
+                            <HuntsCard
+                              key={i}
+                              huntInfo={huntsdata}
+                              claimsInfo={HuntInfo && HuntInfo.filter(
+                                (cc) => cc.tweet_id === huntsdata.tweet_id
+                              )}
+                            />
+                          ))}
+                        </section>
                       )}
-                    />
-                  ))}
-                </section>
+                    </Tabs.Item>
+
+                    <Tabs.Item title={`Past Hunts (${ExpiredData && ExpiredData.length})`} icon={AiOutlineFileDone}>
+                      {ExpiredData && (
+                        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-5 gap-8 px-3">
+                          {ExpiredData.map((huntsdata, i) => (
+                            <HuntsCard
+                              key={i}
+                              huntInfo={huntsdata}
+                              claimsInfo={HuntInfo && HuntInfo.filter(
+                                (cc) => cc.tweet_id === huntsdata.tweet_id
+                              )}
+                            />
+                          ))}
+                        </section>
+                      )}
+                    </Tabs.Item>
+                  </Tabs.Group>
+
+
+                </>
               )}
+
             </Card>
           </Col>
         </Row>
@@ -130,14 +181,28 @@ const HuntsCard = ({ huntInfo, claimsInfo }) => {
         </div>
 
         <div className="flex justify-between">
-          <div>
-            <p className="fontBold text-white">Claims</p>
-            <p className="fontBold text-sm textPrimary">
-              {claimsInfo[0].claimers.length}
-              <span className="text-white"> / </span>
-              {huntInfo.claimable}
-            </p>
-          </div>
+          {huntInfo.isExpired ? (
+            <div>
+              <p className="text-white mb-3">{claimsInfo && claimsInfo[0].claimers.length} claimed</p>
+              <button className='bg-[#BCF0DA] px-2 rounded-lg text-[#0C4737] claimedButton'>
+                Ended 🕓
+              </button>
+            </div>
+          ) : (
+            <div>
+              <p className="fontBold text-white">Claims</p>
+              <p className="fontBold text-sm textPrimary">
+                {claimsInfo[0].claimers.length}
+                <span className="text-white"> / </span>
+                {huntInfo.claimable}
+              </p>
+              <button className='bg-[red] px-2 rounded-lg text-[#0C4737] claimedButton'>
+                Live 🕓
+              </button>
+            </div>
+          )
+          }
+
           <div>
             <p className="fontBold text-white">Reward</p>
             {huntInfo.reward_type === "boop" ? (
@@ -161,8 +226,8 @@ const HuntsCard = ({ huntInfo, claimsInfo }) => {
             )}
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
     // </>
   );
 };
