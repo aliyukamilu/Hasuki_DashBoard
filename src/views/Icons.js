@@ -61,6 +61,7 @@ function Icons() {
 
   return (
     <>
+      <IoSnowOutline />
       <Container fluid>
         <Row>
           <Col md="12">
@@ -192,7 +193,7 @@ const HuntsCard = ({ huntInfo, claimsInfo }) => {
             <div>
               <p className="fontBold text-white">Claims</p>
               <p className="fontBold text-sm textPrimary">
-                {claimsInfo[0].claimers.length}
+                {claimsInfo && claimsInfo[0].claimers.length}
                 <span className="text-white"> / </span>
                 {huntInfo.claimable}
               </p>
