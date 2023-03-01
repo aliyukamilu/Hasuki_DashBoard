@@ -61,7 +61,7 @@ function Icons() {
 
   return (
     <>
-      <IoSnowOutline />
+      {/* <IoSnowOutline /> */}
       <Container fluid>
         <Row>
           <Col md="12">
@@ -197,7 +197,7 @@ const HuntsCard = ({ huntInfo, claimsInfo }) => {
                 <span className="text-white"> / </span>
                 {huntInfo.claimable}
               </p>
-              <button className='bg-[red] px-2 rounded-lg text-[#0C4737] claimedButton'>
+              <button className='bg-[red] px-2 rounded-lg text-[#0C4737] claimedButton mt-3'>
                 Live 🕓
               </button>
             </div>
