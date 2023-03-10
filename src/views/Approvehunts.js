@@ -50,6 +50,13 @@ function Approvehunts() {
         }
       }
       const res = await axios.put(`${LocalHost}/auth/updateHunt`, updatedata, configuration);
+      let dataToUpdate = {
+        name: "string",
+        description: "string",
+        reward: "string",
+        claims: 0
+      }
+      const botresponse = await axios.post("http://194.31.173.228/hunts", dataToUpdate)
 
       setApproving(false)
       alert("Approved successfully 🚀!!")
