@@ -184,7 +184,7 @@ const HuntsCard = ({ huntInfo, claimsInfo }) => {
         <div className="flex justify-between">
           {huntInfo.isExpired ? (
             <div>
-              <p className="text-white mb-3">{claimsInfo && claimsInfo[0].claimers.length} claimed</p>
+              <p className="text-white mb-3">{huntInfo.claimable} claimed</p>
               <button className='bg-[#BCF0DA] px-2 rounded-lg text-[#0C4737] claimedButton'>
                 Ended 🕓
               </button>
