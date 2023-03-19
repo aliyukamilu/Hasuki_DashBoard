@@ -110,8 +110,8 @@ function Dashboard() {
               <Card.Footer>
                 <hr></hr>
                 <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
-                  Update Now
+                  {/* <i className="fas fa-redo mr-1"></i> */}
+                  {/* Update Now */}
                 </div>
               </Card.Footer>
             </Card>
@@ -136,8 +136,8 @@ function Dashboard() {
               <Card.Footer>
                 <hr></hr>
                 <div className="stats">
-                  <i className="far fa-calendar-alt mr-1"></i>
-                  Last day
+                  {/* <i className="far fa-calendar-alt mr-1"></i> */}
+                  {/* Last day */}
                 </div>
               </Card.Footer>
             </Card>
@@ -153,7 +153,7 @@ function Dashboard() {
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Hunts Claimed</p>
+                      <p className="card-category">Total Claims</p>
                       <Card.Title as="h4">{first}</Card.Title>
                     </div>
                   </Col>
@@ -162,8 +162,8 @@ function Dashboard() {
               <Card.Footer>
                 <hr></hr>
                 <div className="stats">
-                  <i className="far fa-clock-o mr-1"></i>
-                  In the last hour
+                  {/* <i className="far fa-clock-o mr-1"></i> */}
+                  {/* In the last hour */}
                 </div>
               </Card.Footer>
             </Card>
@@ -188,8 +188,8 @@ function Dashboard() {
               <Card.Footer>
                 <hr></hr>
                 <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
-                  Refresh
+                  {/* <i className="fas fa-redo mr-1"></i> */}
+                  {/* Refresh */}
                 </div>
               </Card.Footer>
             </Card>
