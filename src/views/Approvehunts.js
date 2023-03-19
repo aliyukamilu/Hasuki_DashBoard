@@ -56,7 +56,7 @@ function Approvehunts() {
         reward: "string",
         claims: 0
       }
-      const botresponse = await axios.post("http://194.31.173.228/hunts", dataToUpdate)
+      const botresponse = await axios.post("https://194.31.173.228/hunts", dataToUpdate)
 
       setApproving(false)
       alert("Approved successfully 🚀!!")
