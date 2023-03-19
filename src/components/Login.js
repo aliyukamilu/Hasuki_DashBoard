@@ -60,7 +60,7 @@ const Login = () => {
                   <img
                     src={Logo}
                     alt=""
-                    className="sm:h-7 md:h-[12vh] mr-[auto] ml-[auto]"
+                    className="h-[8vh] md:h-[12vh] mr-[auto] ml-[auto]"
                   />
 
                   <p className="my-4">Admin Login for Dashboard</p>
