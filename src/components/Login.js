@@ -43,21 +43,27 @@ const Login = () => {
     <>
       <div className="">
         <div className="grid grid-cols-6 h-[100vh]">
-          <div className="col-span-3">
+          {/* <div className="col-span-3 ">
             <div className="background h-[100vh]">
-              {/* <p>Tribute of thats how we should be inside</p> */}
+              <p>Tribute of thats how we should be inside</p>
               <div className="grid place-items-center h-screen">
                 <img src={Logo} alt="" className="sm:h-12 md:h-[44vh] " />
               </div>
             </div>
-          </div>
-          <div className="col-span-3 back">
+          </div> */}
+          <div className="col-span-6 back">
             <div className="">
               {/* <div className="">
               </div> */}
-              <form className="grid place-items-center h-screen border-2 border-gray-500  ">
-                <div className="bg-white p-[10vh] border-2 border-gray-300">
-                  <p>Admin Login for Dashboard</p>
+              <form className="grid place-items-center h-screen  ">
+                <div className="bg-white p-[8vh] border-2 border-gray-300">
+                  <img
+                    src={Logo}
+                    alt=""
+                    className="sm:h-7 md:h-[12vh] mr-[auto] ml-[auto]"
+                  />
+
+                  <p className="my-4">Admin Login for Dashboard</p>
 
                   <div className="mt-2">
                     <div className=" block">
@@ -95,7 +101,7 @@ const Login = () => {
                   </div>
 
                   <button
-                    className="md:w-full  mt-5 bg-[transparent] hover:bg-[#ff6000] hover:text-white text-[#ff6000] py-2 "
+                    className="w-full  mt-5 bg-[transparent] hover:bg-[#ff6000] hover:text-white text-[#ff6000] py-2 "
                     onClick={Submit}
                     style={{ border: "1px solid #ff6000", borderRadius: "2vh" }}
                   >
