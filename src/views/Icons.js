@@ -34,7 +34,7 @@ function Icons() {
       configuration
     );
     const RetrivedHunts = res.data.data;
-    sethunts(RetrivedHunts);
+    sethunts(RetrivedHunts.reverse());
     // console.log(response2.data.data);
     setHuntInfo(response2.data.data);
   }

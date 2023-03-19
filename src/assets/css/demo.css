@@ -11,6 +11,14 @@
   /* box-shadow: rgba(250, 96, 2, 0.1) 0px 12px 30px 0px, rgba(250, 96, 2, 0.1) 0px 2px 4px 0px, rgba(250, 96, 2, 0.1) 0px 0px 0px 1px inset; */
 }
 
+.background {
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)),
+    url(../../assets/img/cubes.png);
+}
+.back {
+  background-image: linear-gradient(rgba(255, 96, 0, 0), rgba(255, 96, 0, 0)),
+    url(../../assets/img/cubes.png);
+}
 .huntsCard:hover {
   transform: translateY(-5px);
   box-shadow: rgba(250, 96, 2, 0.1) 0px 12px 30px 0px,

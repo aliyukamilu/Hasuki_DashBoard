@@ -2,17 +2,44 @@ import React, { useState } from "react";
 import { Button, Modal } from "flowbite-react";
 
 const DeleteModal = (props) => {
+  // const ffff = props.alluserdata;
   const [deleteModal, setdeleteModal] = useState(false);
   const [del, setdel] = useState(props.alluserdata);
+  const [data, setdata] = useState([]);
 
+  // console.log(props.userAddress);
+
+  // del.map((dd) => {
+  //   return dd.address;
+  // });
   const style = {
     backgroundColor: "#dc3545",
   };
 
   const handleClick = (address) => {
     try {
-      const filterred = del.filter((nnn) => nnn.address === address);
-      // console.log(filterred);
+      // console.log(del);
+
+      setdel((prev) => {
+        // console.log(prev);
+        return prev.filter((nnn) => {
+          return nnn.address !== address;
+        });
+      });
+      console.log(del);
+      // console.log(address);
+      // const filterred = del.filter((userdata) => {
+      //   return userdata.address === address;
+      // });
+
+      // const filterred = del.filter((nnn) => {
+      //   console.log(nnn);
+      //   return nnn.address !== address;
+      // });
+      // const filterred = del.filter((nnn) => nnn.address === address);
+      // setdel(filterred);
+      console.log(filterred);
+      // console.log(del);
     } catch (error) {
       console.log(error);
     }

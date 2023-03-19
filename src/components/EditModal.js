@@ -12,19 +12,6 @@ const EditModal = (props) => {
   const [post, setpost] = useState(null);
   const [edito, setEdito] = useState("");
   // const [top, settop] = useState();
-  // const style = {
-  //   width:"5vh",
-  //   height:"2vh",
-
-  // }
-
-  // const HandleChange = (e) => {
-  //   console.log(e.target.value);
-  // };
-  // //
-  //   async function postData() {
-  //     console.log(dd);
-  //   }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -121,22 +108,34 @@ const EditModal = (props) => {
 
     const requestOptions = {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      // mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+        token: process.env.REACT_APP_PJ_TOKEN,
+      },
+      mode: "cors",
       body: JSON.stringify({
-        body: {
-          address: dd.name,
-          updateData: {
-            name: dd.name,
-            XP: dd.XP,
-            solEarned: dd.solEarned,
-            boopEarned: dd.boopEarned,
-            Level: dd.Level,
-          },
+        collection: "users",
+        conditionn: {
+          address: dd.address,
         },
+        daataa: {
+          boopEarned: dd.boopEarned,
+          solEarned: dd.solEarned,
+          name: dd.name,
+          XP: dd.XP,
+          Level: dd.Level,
+        },
+        // address: dd.address,
+        // updateData: {
+        //   name: dd.name,
+        //   XP: dd.XP,
+        //   solEarned: dd.solEarned,
+        //   boopEarned: dd.boopEarned,
+        //   Level: dd.Level,
+        // },
       }),
     };
-    fetch(`${HOST}/auth/updateUser`, configuration, requestOptions).then(
+    fetch(`${LocalHost}/auth/updateBatchCondition`, requestOptions).then(
       (response) => console.log(response)
     );
 
@@ -196,7 +195,7 @@ const EditModal = (props) => {
     HandleCreate();
   };
 
-  // console.log(post);
+  // console.log(post);cd
   return (
     <div>
       <React.Fragment>
