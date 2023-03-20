@@ -5,7 +5,12 @@ import { FaUser, FaLock } from "react-icons/fa";
 import Logo from "../../src/assets/img/logo.png";
 // import { useNavigate } from "react-router-dom";
 // import { Redirect } from "react-router";
+// import { useHistory } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+// const ddd = require("react-router-dom");
+// console.log(ddd);
 
 // import Img1 from "../../src/assets/img/cubes.png";
 
@@ -32,11 +37,11 @@ const Login = () => {
     console.log(data);
 
     if (data.Name === "" || data.Password === "") {
-      alert("please fill in the input");
+      toast("Invalid Credentials");
     } else {
-      <Link to="/admin/dashboard" />;
-      alert("access Granted");
-      //   <Redirect from="/Login" to="" />;
+      <Link to="admin/dashboard" />;
+      //   navigate("/admin/dashboard");
+      //   toast("Access Granted");
     }
   };
   return (
@@ -105,6 +110,11 @@ const Login = () => {
                     onClick={Submit}
                     style={{ border: "1px solid #ff6000", borderRadius: "2vh" }}
                   >
+                    <ToastContainer
+                      position="top-center"
+                      theme="dark"
+                      //   style={{ backgroundColor: "red" }}
+                    />
                     Sign In
                   </button>
                 </div>
