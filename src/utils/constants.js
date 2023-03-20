@@ -7,4 +7,4 @@ export const configuration = {
 export const HOST = "https://hasuki-raid-backend.vercel.app";
 // export const LocalHost = "https://hasuki-raid-backend.vercel.app";
 
-export const LocalHost = "http://localhost:3001";
+export const LocalHost = "https://hasuki-raid-backend.vercel.app";
