@@ -56,7 +56,29 @@ function Approvehunts() {
         reward: "string",
         claims: 0
       }
-      const botresponse = await axios.post("https://194.31.173.228/hunts", dataToUpdate)
+
+      // const botresponse = await axios.post("https://194.31.173.228/hunts", dataToUpdate)
+      async function PingBot() {
+        try {
+          const botresponse = await fetch("http://194.31.173.228/hunts", {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataToUpdate)
+          })
+
+          const result = await botresponse.json()
+          console.log(result)
+
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      PingBot()
+
+
 
       setApproving(false)
       alert("Approved successfully 🚀!!")
