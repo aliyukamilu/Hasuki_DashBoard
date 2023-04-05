@@ -8,15 +8,20 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   transition: 0.3s ease-in-out;
-  box-shadow: rgba(250, 96, 2, 0.1) 0px 12px 30px 0px, rgba(250, 96, 2, 0.1) 0px 2px 4px 0px, rgba(250, 96, 2, 0.1) 0px 0px 0px 1px inset;
+  box-shadow: rgba(250, 96, 2, 0.1) 0px 12px 30px 0px,
+    rgba(250, 96, 2, 0.1) 0px 2px 4px 0px,
+    rgba(250, 96, 2, 0.1) 0px 0px 0px 1px inset;
 }
 
-.background {
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)),
+/* .background {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)),
     url(../../assets/img/cubes.png);
-}
+} */
 .back {
-  background-image: linear-gradient(rgba(255, 96, 0, 0), rgba(255, 96, 0, 0)),
+  background-image: linear-gradient(
+      rgba(255, 96, 0, 0.1),
+      rgba(255, 96, 0, 0.1)
+    ),
     url(../../assets/img/cubes.png);
 }
 .huntsCard:hover {
@@ -64,7 +69,7 @@
   margin: 0 2px;
 }
 
-.fixed-plugin li>a,
+.fixed-plugin li > a,
 .fixed-plugin .badge {
   transition: all 0.34s;
   -webkit-transition: all 0.34s;
@@ -112,13 +117,13 @@
   margin-bottom: 30px;
 }
 
-.sidebar .nav>li.active-pro {
+.sidebar .nav > li.active-pro {
   position: absolute;
   width: 100%;
   bottom: 10px;
 }
 
-.sidebar .nav>li.active-pro a {
+.sidebar .nav > li.active-pro a {
   background: rgba(255, 255, 255, 0.14);
   opacity: 1;
   color: #ffffff;
@@ -179,9 +184,9 @@
   top: 300px !important;
 }
 
-.fixed-plugin .dropdown-menu>.active>a,
-.fixed-plugin .dropdown-menu>.active>a:hover,
-.fixed-plugin .dropdown-menu>.active>a:focus {
+.fixed-plugin .dropdown-menu > .active > a,
+.fixed-plugin .dropdown-menu > .active > a:hover,
+.fixed-plugin .dropdown-menu > .active > a:focus {
   color: #777777;
   text-align: center;
 }
@@ -288,14 +293,14 @@
   float: right;
 }
 
-.fixed-plugin .dropdown-menu>li.adjustments-line>a {
+.fixed-plugin .dropdown-menu > li.adjustments-line > a {
   padding-right: 0;
   padding-left: 0;
   border-bottom: 1px solid #ddd;
   margin: 0;
 }
 
-.fixed-plugin .dropdown-menu>li>a.img-holder {
+.fixed-plugin .dropdown-menu > li > a.img-holder {
   font-size: 16px;
   text-align: center;
   border-radius: 10px;
@@ -310,23 +315,23 @@
   padding: 0;
 }
 
-.fixed-plugin .dropdown-menu>li>a.switch-trigger:hover,
-.fixed-plugin .dropdown-menu>li>a.switch-trigger:focus {
+.fixed-plugin .dropdown-menu > li > a.switch-trigger:hover,
+.fixed-plugin .dropdown-menu > li > a.switch-trigger:focus {
   background-color: transparent;
 }
 
-.fixed-plugin .dropdown-menu>li:hover>a.img-holder,
-.fixed-plugin .dropdown-menu>li:focus>a.img-holder {
+.fixed-plugin .dropdown-menu > li:hover > a.img-holder,
+.fixed-plugin .dropdown-menu > li:focus > a.img-holder {
   border-color: rgba(0, 187, 255, 0.53);
 }
 
-.fixed-plugin .dropdown-menu>.active>a.img-holder,
-.fixed-plugin .dropdown-menu>.active>a.img-holder {
+.fixed-plugin .dropdown-menu > .active > a.img-holder,
+.fixed-plugin .dropdown-menu > .active > a.img-holder {
   border-color: #00bbff;
   background-color: #ffffff;
 }
 
-.fixed-plugin .dropdown-menu>li>a img {
+.fixed-plugin .dropdown-menu > li > a img {
   margin-top: auto;
 }
 
@@ -346,8 +351,8 @@
   margin-right: 2%;
 }
 
-.dropdown-menu>li>a:hover,
-.dropdown-menu>li>a:focus {
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
   opacity: 1;
 }
 
@@ -488,7 +493,7 @@
 .btn-facebook:focus,
 .btn-facebook:active,
 .btn-facebook.active,
-.open>.btn-facebook.dropdown-toggle {
+.open > .btn-facebook.dropdown-toggle {
   background-color: transparent;
   color: #3b5998;
   border-color: #3b5998;
@@ -512,7 +517,7 @@
 .btn-facebook.btn-fill:focus,
 .btn-facebook.btn-fill:active,
 .btn-facebook.btn-fill.active,
-.open>.btn-facebook.btn-fill.dropdown-toggle {
+.open > .btn-facebook.btn-fill.dropdown-toggle {
   background-color: #3b5998;
   color: #ffffff;
   opacity: 1;
@@ -527,7 +532,7 @@
 .btn-twitter:focus,
 .btn-twitter:active,
 .btn-twitter.active,
-.open>.btn-twitter.dropdown-toggle {
+.open > .btn-twitter.dropdown-toggle {
   background-color: transparent;
   color: #55acee;
   border-color: #55acee;
@@ -551,7 +556,7 @@
 .btn-twitter.btn-fill:focus,
 .btn-twitter.btn-fill:active,
 .btn-twitter.btn-fill.active,
-.open>.btn-twitter.btn-fill.dropdown-toggle {
+.open > .btn-twitter.btn-fill.dropdown-toggle {
   background-color: #55acee;
   color: #ffffff;
   opacity: 1;
@@ -601,13 +606,13 @@
   margin-bottom: 30px;
 }
 
-.sidebar .nav>li.active-pro {
+.sidebar .nav > li.active-pro {
   position: absolute;
   width: 100%;
   bottom: 10px;
 }
 
-.sidebar .nav>li.active-pro a {
+.sidebar .nav > li.active-pro a {
   background: rgba(255, 255, 255, 0.14);
   opacity: 1;
   color: #ffffff;
@@ -774,11 +779,13 @@
 
 .gh-btn {
   background-color: #eee;
-  background-image: -webkit-gradient(linear,
-      left top,
-      left bottom,
-      color-stop(0, #fcfcfc),
-      color-stop(100%, #eee));
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0, #fcfcfc),
+    color-stop(100%, #eee)
+  );
   background-image: -webkit-linear-gradient(top, #fcfcfc 0, #eee 100%);
   background-image: -moz-linear-gradient(top, #fcfcfc 0, #eee 100%);
   background-image: -ms-linear-gradient(top, #fcfcfc 0, #eee 100%);
@@ -793,11 +800,13 @@
 .gh-btn:focus {
   text-decoration: none;
   background-color: #ddd;
-  background-image: -webkit-gradient(linear,
-      left top,
-      left bottom,
-      color-stop(0, #eee),
-      color-stop(100%, #ddd));
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0, #eee),
+    color-stop(100%, #ddd)
+  );
   background-image: -webkit-linear-gradient(top, #eee 0, #ddd 100%);
   background-image: -moz-linear-gradient(top, #eee 0, #ddd 100%);
   background-image: -ms-linear-gradient(top, #eee 0, #ddd 100%);

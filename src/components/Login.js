@@ -5,16 +5,14 @@ import { FaUser, FaLock } from "react-icons/fa";
 import Logo from "../../src/assets/img/logo.png";
 // import { useNavigate } from "react-router-dom";
 // import { Redirect } from "react-router";
-// import { useHistory } from "react-router";
+import { useHistory } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
-// const ddd = require("react-router-dom");
-// console.log(ddd);
-
-// import Img1 from "../../src/assets/img/cubes.png";
+import axios from "axios";
+import { HOST, configuration } from "utils/constants";
 
 const Login = () => {
+  const history = useHistory();
   //   const navigate = useNavigate();
   const [data, setdata] = useState({
     Name: "",
@@ -39,9 +37,15 @@ const Login = () => {
     if (data.Name === "" || data.Password === "") {
       toast("Invalid Credentials");
     } else {
-      <Link to="admin/dashboard" />;
-      //   navigate("/admin/dashboard");
-      //   toast("Access Granted");
+      axios
+        .get(
+          // `${HOST}/auth/authenticateAdmin?username=${data.Name}&password=${data.Password}`,
+          `https://hasuki-raid-backend.vercel.app/auth/authenticateAdmin?username=admin&password=Hasuki@2023`,
+          configuration
+        )
+        .then((data) => console.log(data.data))
+        .catch((err) => console.log(err));
+      // history.push("/admin/dashboard");
     }
   };
   return (
