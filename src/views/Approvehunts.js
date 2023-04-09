@@ -73,6 +73,7 @@ function Approvehunts() {
     }
 
     try {
+      
       const botresponse = await fetch("http://194.31.173.228/hunts", {
         method: "POST",
         headers: {
