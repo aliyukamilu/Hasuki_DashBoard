@@ -50,47 +50,47 @@ function Approvehunts() {
         }
       }
       const res = await axios.put(`${LocalHost}/auth/updateHunt`, updatedata, configuration);
-      let dataToUpdate = {
-        name: "string",
-        description: "string",
-        reward: "string",
-        claims: 0
-      }
-
-      // const botresponse = await axios.post("https://194.31.173.228/hunts", dataToUpdate)
-      async function PingBot() {
-        try {
-          const botresponse = await fetch("http://194.31.173.228/hunts", {
-            method: "POST",
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dataToUpdate)
-          })
-
-          const result = await botresponse.json()
-          console.log(result)
-
-        } catch (error) {
-          console.log(error)
-        }
-      }
-      PingBot()
 
 
-
+      // const botresponse = await axios.post("https://194.31.173.228/hunts", dataToUpdat
       setApproving(false)
       alert("Approved successfully 🚀!!")
-      window.location.reload()
-
-
-
-
+      // window.location.reload()
     } catch (error) {
       console.log(error)
       setApproving(false)
       alert("something went wrong !")
+    }
+  }
+
+  async function PingBot() {
+
+    let dataToUpdate = {
+      name: "string",
+      description: "string",
+      reward: "string",
+      claims: 0
+    }
+
+    try {
+      
+      const botresponse = await fetch("http://194.31.173.228/hunts", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataToUpdate)
+      })
+
+      const result = await botresponse.json()
+      console.log(result)
+
+      alert("Notification sent successfully.")
+
+    } catch (error) {
+      console.log(error)
+      alert("Can't send notification.")
     }
   }
 
@@ -105,7 +105,11 @@ function Approvehunts() {
         <>
           {HuntData && (
             <>
-              <p>Approved data {HuntData.length}</p>
+              <div className="flex justify-between">
+                <p>Approved data {HuntData.length}</p>
+                <button className="bgPrimary px-3 py-2 text-white" onClick={PingBot}>Send Alert</button>
+              </div>
+
               <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-5 gap-8 px-3">
                 {HuntData.map((huntsdata, i) => (
                   <HuntsCard
