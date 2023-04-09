@@ -73,7 +73,7 @@ function Approvehunts() {
     }
 
     try {
-      
+
       const botresponse = await fetch("http://194.31.173.228/hunts", {
         method: "POST",
         headers: {
@@ -97,6 +97,7 @@ function Approvehunts() {
 
   return (
     <section>
+      <button className="bgPrimary px-3 py-2 text-white" onClick={PingBot}>Send Alert</button>
       {loadingg ? (
         <div className="flex justify-center">
           <Spinner size="lg" />
@@ -105,10 +106,8 @@ function Approvehunts() {
         <>
           {HuntData && (
             <>
-              <div className="flex justify-between">
-                <p>Approved data {HuntData.length}</p>
-                <button className="bgPrimary px-3 py-2 text-white" onClick={PingBot}>Send Alert</button>
-              </div>
+              <p>Approved data {HuntData.length}</p>
+
 
               <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-5 gap-8 px-3">
                 {HuntData.map((huntsdata, i) => (

@@ -22,7 +22,7 @@ import axios from "axios";
 import { lowerFirst } from "lodash";
 function Dashboard() {
   const [user, setuser] = useState("");
-  const [hunt, sethunt] = useState("");
+  const [hunt, sethunt] = useState(null);
   // const [huntClaimed, sethuntClaimed] = useState([]);
   const [first, setfirst] = useState("");
 
@@ -52,35 +52,15 @@ function Dashboard() {
 
   async function TotalHunt() {
     const resp = await axios.get(
-      `${HOST}/auth/retrieveHuntsInfo`,
+      `${HOST}/auth/retrieveHuntsAll`,
       configuration
     );
-    const hunts = resp.data;
+    const huntsDD = resp.data;
     // console.log(hunts);
-    const lengthHunts = hunts.data.length;
-    sethunt(lengthHunts);
+    sethunt(huntsDD);
 
-    // sethuntClaimed(hunts.data);
-
-    // console.log(lengthHunts);
-
-    const ff = [];
-    hunts.data.forEach((hunt) => {
-      return ff.push(hunt.twitterclaimers.length);
-    });
-
-    // console.log(ff);
-
-    // console.log(first);
-    const dd = ff.reduce((a, b) => {
-      return a + b;
-    }, 0);
-
-    setfirst(dd);
   }
-  // console.log(huntClaimed);
 
-  // console.log(first);
 
   return (
     <>
@@ -128,7 +108,7 @@ function Dashboard() {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Total Hunts</p>
-                      <Card.Title as="h4">{hunt}</Card.Title>
+                      <Card.Title as="h4">{hunt && hunt.totalHunts}</Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -154,7 +134,7 @@ function Dashboard() {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Total Claims</p>
-                      <Card.Title as="h4">{first}</Card.Title>
+                      <Card.Title as="h4">{hunt && hunt.totalClaims}</Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -168,6 +148,7 @@ function Dashboard() {
               </Card.Footer>
             </Card>
           </Col>
+
           <Col lg="3" sm="6">
             <Card className="card-stats">
               <Card.Body>
@@ -179,8 +160,8 @@ function Dashboard() {
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Sol Disbured</p>
-                      <Card.Title as="h4">9 $sol </Card.Title>
+                      <p className="card-category">Sol Disbursed</p>
+                      <p className="font-bold text-xl">{hunt && hunt.solDistributed.toFixed(2)} </p>
                     </div>
                   </Col>
                 </Row>
@@ -194,6 +175,34 @@ function Dashboard() {
               </Card.Footer>
             </Card>
           </Col>
+
+          <Col lg="3" sm="6">
+            <Card className="card-stats">
+              <Card.Body>
+                <Row>
+                  <Col xs="5">
+                    <div className="icon-big text-center icon-warning">
+                      <i className="nc-icon nc-money-coins text-primary"></i>
+                    </div>
+                  </Col>
+                  <Col xs="7">
+                    <div className="numbers">
+                      <p className="card-category">BOOP Disbursed</p>
+                      <p className="font-bold text-xl">{hunt && hunt.boopDistributed} </p>
+                    </div>
+                  </Col>
+                </Row>
+              </Card.Body>
+              <Card.Footer>
+                <hr></hr>
+                <div className="stats">
+                  {/* <i className="fas fa-redo mr-1"></i> */}
+                  {/* Refresh */}
+                </div>
+              </Card.Footer>
+            </Card>
+          </Col>
+
         </Row>
         <Row>
           <Col md="8">
