@@ -10,8 +10,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { HOST, configuration } from "utils/constants";
+// import {useContext} from "react"
+// import { AuthUser } from "./Context/AuthContext";
 
 const Login = () => {
+  // const  = useContext(AuthUser)
+
   const history = useHistory();
   //   const navigate = useNavigate();
   const [data, setdata] = useState({
@@ -39,13 +43,20 @@ const Login = () => {
     } else {
       axios
         .get(
-          // `${HOST}/auth/authenticateAdmin?username=${data.Name}&password=${data.Password}`,
-          `https://hasuki-raid-backend.vercel.app/auth/authenticateAdmin?username=admin&password=Hasuki@2023`,
+          `${HOST}/auth/authenticateAdmin?username=${data.Name}&password=${data.Password}`,
+          // `https://hasuki-raid-backend.vercel.app/auth/authenticateAdmin?username=admin&password=Hasuki@2023`,
           configuration
         )
-        .then((data) => console.log(data.data))
+        // .then((data) => console.log(data.data))
+        .then((data) => {
+          if (data.data.isAuthenticated === true) {
+            history.push("/admin/dashboard");
+          } else {
+            null;
+          }
+        })
+
         .catch((err) => console.log(err));
-      // history.push("/admin/dashboard");
     }
   };
   return (
