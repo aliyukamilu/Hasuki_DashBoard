@@ -5,7 +5,8 @@ import { FaUser, FaLock } from "react-icons/fa";
 import Logo from "../../src/assets/img/logo.png";
 // import { useNavigate } from "react-router-dom";
 // import { Redirect } from "react-router";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
+// import {useNavigate} from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -50,7 +51,7 @@ const Login = () => {
         // .then((data) => console.log(data.data))
         .then((data) => {
           if (data.data.isAuthenticated === true) {
-            history.push("/admin/dashboard");
+            router.push("/admin/dashboard");
           } else {
             null;
           }
