@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Label, Select, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
@@ -19,6 +19,10 @@ import { Spinner } from "flowbite-react";
 const Login = () => {
   // const  = useContext(AuthUser)
   const [loadingg, setloadingg] = useState(false);
+  useEffect(() => {
+    setloadingg(false)
+
+  }, [])
 
   const history = useHistory();
   //   const navigate = useNavigate();
@@ -42,9 +46,15 @@ const Login = () => {
     e.preventDefault();
     console.log(data);
 
+
+
     if (data.Name === "" || data.Password === "") {
-      toast("Invalid Credentials");
+      toast.warning("All fields are required !!", {
+        autoClose: 2000
+      });
     } else {
+      setloadingg(true)
+
       axios
         .get(
           `${HOST}/auth/authenticateAdmin?username=${data.Name}&password=${data.Password}`,
@@ -54,17 +64,26 @@ const Login = () => {
         )
         // .then((data) => console.log(data.data))
         .then((data) => {
-          setloadingg(true);
 
-          if (data.data.isAuthenticated === true) {
+
+          if (data.data.status === 1) {
             history.push("/admin/dashboard");
           } else {
             // null;
-            toast("Invalid Credentials");
+            setloadingg(false);
+            toast.error("Invalid Credentials !!", {
+              autoClose: 2000
+            });
           }
         })
 
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err)
+          setloadingg(false);
+          toast.error("Invalid Credentials !!", {
+            autoClose: 2000
+          });
+        });
     }
   };
   return (
@@ -127,25 +146,27 @@ const Login = () => {
                       style={{ borderRadius: "3vh" }}
                     />
                   </div>
+                  <ToastContainer
+                    position="top-center"
+                    theme="dark"
+                  //   style={{ backgroundColor: "red" }}
+                  />
 
-                  <button
-                    className="w-full  mt-5 bg-[transparent] hover:bg-[#ff6000] hover:text-white text-[#ff6000] py-2 "
-                    onClick={Submit}
-                    style={{ border: "1px solid #ff6000", borderRadius: "2vh" }}
-                  >
-                    <ToastContainer
-                      position="top-center"
-                      theme="dark"
-                      //   style={{ backgroundColor: "red" }}
-                    />
-                    Sign In
-                  </button>
-
-                  {loadingg && (
+                  {loadingg ? (
                     <div className="flex justify-center mt-10">
                       <Spinner size="lg" />
                     </div>
+                  ) : (
+                    <button
+                      className="w-full  mt-5 bg-[transparent] hover:bg-[#ff6000] hover:text-white text-[#ff6000] py-2 "
+                      onClick={Submit}
+                      style={{ border: "1px solid #ff6000", borderRadius: "2vh" }}
+                    >
+
+                      Sign In
+                    </button>
                   )}
+
                 </div>
               </form>
             </div>
