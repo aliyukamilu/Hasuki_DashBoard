@@ -193,8 +193,7 @@ const HuntsCard = ({ huntInfo, setShowModal, setHuntId, theHuntid }) => {
         </div>
         <div className="flex justify-between items-center">
           <div className="mt-3">
-            <p className="textPrimary font-bold">Raids</p>
-            <p className="text-white text-sm break-words">{huntInfo.claimable} Raids</p>
+            <p className="textPrimary font-bold">{huntInfo.claimable} Raids</p>
           </div>
 
           <div>
@@ -202,6 +201,10 @@ const HuntsCard = ({ huntInfo, setShowModal, setHuntId, theHuntid }) => {
               Awaiting
             </Badge>
           </div>
+        </div>
+
+        <div className="text-white">
+          <p className="text-sm"><span className="fontBold">Keywords :</span> {huntInfo.rules.words_comment}</p>
         </div>
 
         <div className="sm:flex-row flex-col flex justify-between mt-3">
