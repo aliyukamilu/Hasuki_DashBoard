@@ -5,11 +5,22 @@ import { FaUser, FaLock } from "react-icons/fa";
 import Logo from "../../src/assets/img/logo.png";
 // import { useNavigate } from "react-router-dom";
 // import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
+// import {useNavigate} from "react-router-dom"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { HOST, configuration } from "utils/constants";
+import { Spinner } from "flowbite-react";
 
-// import Img1 from "../../src/assets/img/cubes.png";
+// import {useContext} from "react"
+// import { AuthUser } from "./Context/AuthContext";
 
 const Login = () => {
+  // const  = useContext(AuthUser)
+  const [loadingg, setloadingg] = useState(false);
+
+  const history = useHistory();
   //   const navigate = useNavigate();
   const [data, setdata] = useState({
     Name: "",
@@ -32,11 +43,28 @@ const Login = () => {
     console.log(data);
 
     if (data.Name === "" || data.Password === "") {
-      alert("please fill in the input");
+      toast("Invalid Credentials");
     } else {
-      <Link to="/admin/dashboard" />;
-      alert("access Granted");
-      //   <Redirect from="/Login" to="" />;
+      axios
+        .get(
+          `${HOST}/auth/authenticateAdmin?username=${data.Name}&password=${data.Password}`,
+          // `https://hasuki-raid-backend.vercel.app/auth/authenticateAdmin?username=admin&password=Hasuki@2023`,
+          // `https://hasuki-raid-backend.vercel.app/auth/authenticateAdmin?username=${data.Name}&password=${data.Password}`,
+          configuration
+        )
+        // .then((data) => console.log(data.data))
+        .then((data) => {
+          setloadingg(true);
+
+          if (data.data.isAuthenticated === true) {
+            history.push("/admin/dashboard");
+          } else {
+            // null;
+            toast("Invalid Credentials");
+          }
+        })
+
+        .catch((err) => console.log(err));
     }
   };
   return (
@@ -105,8 +133,19 @@ const Login = () => {
                     onClick={Submit}
                     style={{ border: "1px solid #ff6000", borderRadius: "2vh" }}
                   >
+                    <ToastContainer
+                      position="top-center"
+                      theme="dark"
+                      //   style={{ backgroundColor: "red" }}
+                    />
                     Sign In
                   </button>
+
+                  {loadingg && (
+                    <div className="flex justify-center mt-10">
+                      <Spinner size="lg" />
+                    </div>
+                  )}
                 </div>
               </form>
             </div>

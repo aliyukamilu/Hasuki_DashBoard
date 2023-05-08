@@ -58,9 +58,7 @@ function Dashboard() {
     const huntsDD = resp.data;
     // console.log(hunts);
     sethunt(huntsDD);
-
   }
-
 
   return (
     <>
@@ -134,7 +132,9 @@ function Dashboard() {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Total Claims</p>
-                      <Card.Title as="h4">{hunt && hunt.totalClaims}</Card.Title>
+                      <Card.Title as="h4">
+                        {hunt && hunt.totalClaims}
+                      </Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -161,7 +161,9 @@ function Dashboard() {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Sol Disbursed</p>
-                      <p className="font-bold text-xl">{hunt && hunt.solDistributed.toFixed(2)} </p>
+                      <p className="font-bold text-xl">
+                        {hunt && hunt.solDistributed.toFixed(2)}{" "}
+                      </p>
                     </div>
                   </Col>
                 </Row>
@@ -188,7 +190,9 @@ function Dashboard() {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">BOOP Disbursed</p>
-                      <p className="font-bold text-xl">{hunt && hunt.boopDistributed} </p>
+                      <p className="font-bold text-xl">
+                        {hunt && hunt.boopDistributed}{" "}
+                      </p>
                     </div>
                   </Col>
                 </Row>
@@ -202,10 +206,7 @@ function Dashboard() {
               </Card.Footer>
             </Card>
           </Col>
-
         </Row>
-
-
       </Container>
     </>
   );
